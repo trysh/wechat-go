@@ -25,22 +25,40 @@ SOFTWARE.
 package wxweb
 
 import (
-
-
+	"time"
+	"github.com/skip2/go-qrcode"
 )
 
-const (
+const ()
 
-)
-
-var (
-
-)
-
+var ()
 
 // CreateSession: create wechat bot session
 // if common is nil, session will be created with default config
 // if handlerRegister is nil,  session will create a new HandlerRegister
-func T_CreateSession(common *Common, handlerRegister *HandlerRegister, qrmode int) (*Session, error) {
-	return nil,nil 
+func T_CreateSession() (*Session, []byte, error) {
+	common := DefaultCommon
+	
+	wxWebXcg := &XmlConfig{}
+	
+	// get qrcode
+	uuid, err := JsLogin(common)
+	if err != nil {
+		return nil, nil, err
+	}
+	
+	session := &Session{
+		WxWebCommon: common,
+		WxWebXcg:    wxWebXcg,
+		QrcodeUUID:  uuid,
+		CreateTime:  time.Now().Unix(),
+	}
+	
+	session.HandlerRegister = CreateHandlerRegister()
+	
+	png, err := qrcode.Encode("https://login.weixin.qq.com/l/"+uuid, qrcode.Medium, 256)
+	if err != nil {
+		return nil, nil, err
+	}
+	return session, png, nil
 }
