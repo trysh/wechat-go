@@ -42,5 +42,5 @@ var (
 // if common is nil, session will be created with default config
 // if handlerRegister is nil,  session will create a new HandlerRegister
 func T_CreateSession(common *Common, handlerRegister *HandlerRegister, qrmode int) (*Session, error) {
-	return nil,nil
+	return nil,nil 
 }
