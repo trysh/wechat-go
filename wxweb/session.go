@@ -147,11 +147,11 @@ func (s *Session) scanWaiter() error {
 loop1:
 	for {
 		select {
-		case <-time.After(3 * time.Second):
+		case <-time.After(1 * time.Second):
 			redirectUri, err := Login(s.WxWebCommon, s.QrcodeUUID, "0")
 			if err != nil {
 				logs.Warn(err)
-				if strings.Contains(err.Error(), "window.code=408") {
+				if strings.Contains(err.Error(), "window.code=400") {   //  408->400
 					return err
 				}
 			} else {
