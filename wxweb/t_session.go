@@ -36,7 +36,7 @@ var ()
 // CreateSession: create wechat bot session
 // if common is nil, session will be created with default config
 // if handlerRegister is nil,  session will create a new HandlerRegister
-func T_CreateSession() (*Session, []byte, error) {
+func T_CreateSessionQRC() (*Session, []byte, error) {
 	common := DefaultCommon
 	
 	wxWebXcg := &XmlConfig{}

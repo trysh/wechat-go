@@ -127,6 +127,28 @@ func CreateSession(common *Common, handlerRegister *HandlerRegister, qrmode int)
 	return session, nil
 }
 
+func T_CreateSession() (*Session, error) {
+	common := DefaultCommon
+	
+	wxWebXcg := &XmlConfig{}
+	
+	uuid, err := JsLogin(common)
+	if err != nil {
+		return nil,  err
+	}
+	
+	session := &Session{
+		WxWebCommon: common,
+		WxWebXcg:    wxWebXcg,
+		QrcodeUUID:  uuid,
+		CreateTime:  time.Now().Unix(),
+	}
+	
+	session.HandlerRegister = CreateHandlerRegister()
+	
+	return session, nil
+}
+
 func (s *Session) analizeVersion(uri string) {
 	u, _ := url.Parse(uri)
 
